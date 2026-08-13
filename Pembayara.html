@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pembayaran Berhasil - Sunnyside Story</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Fredoka', sans-serif; }
+    /* Menghilangkan panah input date agar rapi */
+    input[type="date"]::-webkit-calendar-picker-indicator {
+      cursor: pointer;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body class="bg-amber-50 min-h-screen flex items-center justify-center p-4">
+
+  <div class="bg-white w-full max-w-sm rounded-3xl p-8 shadow-xl border-2 border-amber-200 text-center">
+    
+    <!-- Status Icon -->
+    <div class="w-20 h-20 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-emerald-200">
+      <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+      </svg>
+    </div>
+
+    <h1 class="text-2xl font-bold text-amber-900 mb-2">Pembayaran Berhasil!</h1>
+    <p class="text-slate-500 text-sm mb-8">Terima kasih telah berkunjung ke Sunnyside Story.</p>
+
+    <div class="space-y-4 text-left border-t border-b border-amber-100 py-6 mb-8">
+      <div class="flex justify-between text-sm">
+        <span class="text-slate-400">Merchant</span>
+        <span class="text-amber-900 font-semibold">Sunnyside Story</span>
+      </div>
+      
+      <!-- Tanggal (Bisa Diedit) -->
+      <div class="flex justify-between text-sm">
+        <span class="text-slate-400">Tanggal</span>
+        <input type="date" id="datePicker" class="text-amber-900 font-semibold bg-transparent border-none focus:outline-none text-right w-36">
+      </div>
+
+      <!-- Waktu (Otomatis) -->
+      <div class="flex justify-between text-sm">
+        <span class="text-slate-400">Waktu</span>
+        <span id="timeDisplay" class="text-amber-900 font-semibold"></span>
+      </div>
+
+      <div class="flex justify-between text-sm">
+        <span class="text-slate-400">Metode</span>
+        <span class="text-slate-800 font-semibold">QRIS</span>
+      </div>
+      <div class="flex justify-between text-sm">
+        <span class="text-slate-400">ID Transaksi</span>
+        <span id="trx-id" class="text-slate-800 font-mono font-semibold"></span>
+      </div>
+    </div>
+
+    <button onclick="window.location.reload()" class="w-full bg-amber-900 hover:bg-amber-800 text-white font-semibold py-4 rounded-2xl transition duration-200">
+      Selesai
+    </button>
+  </div>
+
+  <script>
+    // 1. Set default tanggal ke hari ini
+    const datePicker = document.getElementById('datePicker');
+    const today = new Date().toISOString().split('T')[0];
+    datePicker.value = today;
+
+    // 2. Set waktu otomatis (Jam:Menit)
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    document.getElementById('timeDisplay').innerText = `${hours}:${minutes} WIB`;
+
+    // 3. Generate Random Transaction ID
+    const randomID = 'SNS-' + Math.floor(1000000000 + Math.random() * 9000000000);
+    document.getElementById('trx-id').innerText = randomID;
+  </script>
+</body>
+</html>
